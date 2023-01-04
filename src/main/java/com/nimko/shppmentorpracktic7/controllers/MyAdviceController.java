@@ -1,5 +1,6 @@
 package com.nimko.shppmentorpracktic7.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.webjars.NotFoundException;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 @ControllerAdvice
 public class MyAdviceController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -28,7 +30,8 @@ public class MyAdviceController {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ResponseEntity<?> processValidationError() {
+    public ResponseEntity<?> processValidationError(NotFoundException exception) {
+        log.error(exception.getMessage());
         return ResponseEntity.notFound().build();
     }
 
