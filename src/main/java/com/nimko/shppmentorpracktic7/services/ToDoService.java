@@ -2,6 +2,7 @@ package com.nimko.shppmentorpracktic7.services;
 
 import com.nimko.shppmentorpracktic7.models.ToDoEntity;
 import com.nimko.shppmentorpracktic7.repo.ToDoRepository;
+import com.nimko.shppmentorpracktic7.utils.State;
 import com.nimko.shppmentorpracktic7.utils.ToDoable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class ToDoService implements ToDoable {
 
     @Override
     public ResponseEntity<?> createOne(@RequestBody ToDoEntity toDoEntity) {
+        if (toDoEntity.getState() != State.PLANNED) throw new NotFoundException("First STATE must be PLANNED!");
         toDoRepository.save(toDoEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Create: " + toDoEntity);
     }
@@ -48,6 +50,6 @@ public class ToDoService implements ToDoable {
         ToDoEntity toDoEntity = toDoRepository.findByToDo(todo);
         if(toDoEntity == null) throw new NotFoundException("Todo is not exist!");
         toDoRepository.delete(toDoEntity);
-        return ResponseEntity.ok().body("");
+        return ResponseEntity.ok().body(toDoEntity + "was deleted!");
     }
 }
