@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/todos")
 public class ToDoController implements ToDoable {
@@ -32,13 +34,13 @@ public class ToDoController implements ToDoable {
 
     @PostMapping
     @Override
-    public ResponseEntity<?> createOne(@RequestBody ToDoEntity toDoEntity){
+    public ResponseEntity<?> createOne(@Valid @RequestBody ToDoEntity toDoEntity){
         return toDoService.createOne(toDoEntity);
     }
 
     @PutMapping
     @Override
-    public ResponseEntity<?> putOne(@RequestBody ToDoEntity toDoEntity){
+    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoEntity toDoEntity){
         return toDoService.putOne(toDoEntity);
     }
 
