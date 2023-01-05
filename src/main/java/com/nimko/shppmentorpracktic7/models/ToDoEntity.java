@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -22,9 +20,6 @@ import java.time.LocalDateTime;
 @Entity
 public class ToDoEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
-    @NotNull
     @Size(min = 1)
     private String toDo;
     @Future

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.webjars.NotFoundException;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,10 +27,10 @@ public class MyAdviceController {
                                 .collect(Collectors.toList()).toString());
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ResponseEntity<?> processValidationError(NotFoundException exception) {
+    public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
         log.error(exception.getMessage());
         return ResponseEntity.notFound().build();
     }
