@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class ToDoService implements ToDoable {
@@ -34,22 +35,24 @@ public class ToDoService implements ToDoable {
 
     @Override
     public ResponseEntity<?> createOne(ToDoEntity toDoEntity) {
-        if (toDoEntity.getState() != State.PLANNED) throw new NotFoundException("First STATE must be PLANNED!");
+        if (toDoRepository.findById(toDoEntity.getToDo()).isEmpty() && toDoEntity.getState() != State.PLANNED)
+            throw new NoSuchElementException("First STATE must be PLANNED!");
         toDoRepository.save(toDoEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Create: " + toDoEntity);
     }
 
     @Override
     public ResponseEntity<?> putOne(ToDoEntity toDoEntity) {
-        ToDoEntity oldEntity = toDoRepository.findById(toDoEntity.getToDo()).orElseThrow();
+        ToDoEntity oldEntity = toDoRepository.
+                findById(toDoEntity.getToDo()).orElseThrow();
         toDoRepository.save(stateService.getUpdate(oldEntity,toDoEntity));
-        return ResponseEntity.ok().body("");
+        return ResponseEntity.ok().body("Put " + toDoEntity);
     }
 
     @Override
     public ResponseEntity<?> deleteOne(String todo) {
         ToDoEntity toDoEntity = toDoRepository.findById(todo).orElseThrow();
         toDoRepository.delete(toDoEntity);
-        return ResponseEntity.ok().body(toDoEntity + "was deleted!");
+        return ResponseEntity.ok().body(toDoEntity + " was deleted!");
     }
 }

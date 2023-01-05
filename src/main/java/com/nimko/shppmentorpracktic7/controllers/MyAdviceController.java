@@ -28,11 +28,11 @@ public class MyAdviceController {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
         log.error(exception.getMessage());
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(exception.getMessage());
     }
 
 }
