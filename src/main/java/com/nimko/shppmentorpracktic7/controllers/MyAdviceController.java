@@ -31,8 +31,9 @@ public class MyAdviceController {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
-        log.error(exception.getMessage());
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(exception.getMessage());
+        String mess = exception.getMessage() != null ? exception.getMessage() : "Operation is wrong!";
+        log.error(mess);
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(mess);
     }
 
 }

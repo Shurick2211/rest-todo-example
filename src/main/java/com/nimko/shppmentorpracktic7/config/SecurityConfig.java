@@ -2,9 +2,11 @@ package com.nimko.shppmentorpracktic7.config;
 
 
 import com.nimko.shppmentorpracktic7.utils.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,9 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ;
     }
 
+    @Autowired
+    AuthenticationProvider provider;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
+                .authenticationProvider(provider)
+                /*
                 .inMemoryAuthentication()
                 .withUser("user")
                 .password("user")
@@ -41,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("admin")
                 .authorities(Role.ADMIN.name())
+
+                 */
                 ;
 
     }
