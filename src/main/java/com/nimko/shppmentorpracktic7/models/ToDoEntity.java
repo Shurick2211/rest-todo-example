@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Entity
-@Schema(name = "Схема ToDoEntity", description = "Сутність для Бази Даних")
+@Schema(name = "Схема ToDoEntity", description = "Сутність для Бази Даних, вона ж DTO")
 public class ToDoEntity {
     @Id
     @Size(min = 1)
