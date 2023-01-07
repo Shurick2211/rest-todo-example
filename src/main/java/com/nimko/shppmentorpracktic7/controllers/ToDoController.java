@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,35 +38,35 @@ public class ToDoController implements ToDoable {
 
     @GetMapping
     @Override
-    @Operation(summary = "Get all ToDo")
+    @Operation(summary = "Get all ToDo", description = "В цьому методі можна отримати всі ToDo")
     public ResponseEntity<?> getAll(){
         return toDoService.getAll();
     }
 
     @GetMapping("/{todo}")
     @Override
-    @Operation(summary = "Get ToDo by todo-field")
+    @Operation(summary = "Get ToDo by todo-field", description = "В цьому методі можна отримати один ToDo по полю - todo")
     public ResponseEntity<?> getOne(@PathVariable String todo){
         return toDoService.getOne(todo);
     }
 
     @PostMapping
     @Override
-    @Operation(summary = "Method for create ToDo")
+    @Operation(summary = "Method for create ToDo", description = "Тут створюємо ToDo")
     public ResponseEntity<?> createOne(@Valid @RequestBody ToDoEntity toDoEntity){
         return toDoService.createOne(toDoEntity);
     }
 
     @PutMapping
     @Override
-    @Operation(summary = "Method for change ToDo")
+    @Operation(summary = "Method for change ToDo", description = "Тут змінюємо ToDo")
     public ResponseEntity<?> putOne(@Valid @RequestBody ToDoEntity toDoEntity){
         return toDoService.putOne(toDoEntity);
     }
 
     @DeleteMapping("/{todo}")
     @Override
-    @Operation(summary = "Method for delete ToDo")
+    @Operation(summary = "Method for delete ToDo", description = "Для видалення ToDo")
     public ResponseEntity<?> deleteOne(@PathVariable String todo){
         return toDoService.deleteOne(todo);
     }

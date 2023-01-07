@@ -1,6 +1,7 @@
 package com.nimko.shppmentorpracktic7.models;
 
 import com.nimko.shppmentorpracktic7.utils.State;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Entity
+@Schema(name = "Схема ToDoEntity", description = "Сутність для Бази Даних")
 public class ToDoEntity {
     @Id
     @Size(min = 1)
