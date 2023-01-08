@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -31,7 +32,8 @@ public class MyAdviceController {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
-        String mess = exception.getMessage() != null ? exception.getMessage() : "Operation is wrong!";
+        String mess = exception.getMessage() != null ? exception.getMessage() :
+                ResourceBundle.getBundle("messages").getString("operation.null");
         log.error(mess);
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(mess);
     }
