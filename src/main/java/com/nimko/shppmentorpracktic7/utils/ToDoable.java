@@ -10,5 +10,5 @@ public interface ToDoable {
    ResponseEntity<?> getOne(String todo);
    ResponseEntity<?> createOne(ToDoEntity toDoEntity, Locale locale);
    ResponseEntity<?> putOne(ToDoEntity toDoEntity, Locale locale);
-   ResponseEntity<?> deleteOne(String todo);
+   ResponseEntity<?> deleteOne(String todo, Locale locale);
 }

@@ -10,7 +10,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -20,7 +19,6 @@ import java.util.NoSuchElementException;
 public class ToDoService implements ToDoable {
     private final ToDoRepository toDoRepository;
     private final StateService stateService;
-
     private final MessageSource messageSource;
 
     @Autowired
@@ -44,9 +42,11 @@ public class ToDoService implements ToDoable {
     @Override
     public ResponseEntity<?> createOne(ToDoEntity toDoEntity, Locale locale) {
         if (toDoRepository.findById(toDoEntity.getToDo()).isEmpty() && toDoEntity.getState() != State.PLANNED)
-            throw new NoSuchElementException(messageSource.getMessage("operation.first", null, locale));
+            throw new NoSuchElementException(
+                    messageSource.getMessage("operation.first", null, locale));
         toDoRepository.save(toDoEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Create: " + toDoEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                messageSource.getMessage("create.sms", null, locale)+ toDoEntity);
     }
 
     @Override
@@ -54,15 +54,18 @@ public class ToDoService implements ToDoable {
         ToDoEntity oldEntity = toDoRepository.
                 findById(toDoEntity.getToDo()).orElseThrow();
         toDoEntity = stateService.getUpdate(oldEntity,toDoEntity);
-        //need check of null
+        if (toDoEntity == null) throw new NoSuchElementException(
+                messageSource.getMessage("operation.null",null, locale));
         toDoRepository.save(toDoEntity);
-        return ResponseEntity.ok().body("Put " + toDoEntity);
+        return ResponseEntity.ok().body(
+                messageSource.getMessage("put.sms", null, locale)+ toDoEntity);
     }
 
     @Override
-    public ResponseEntity<?> deleteOne(String todo) {
+    public ResponseEntity<?> deleteOne(String todo, Locale locale) {
         ToDoEntity toDoEntity = toDoRepository.findById(todo).orElseThrow();
         toDoRepository.delete(toDoEntity);
-        return ResponseEntity.ok().body(toDoEntity + " was deleted!");
+        return ResponseEntity.ok().body(toDoEntity + " "
+                + messageSource.getMessage("delete.sms", null, locale));
     }
 }

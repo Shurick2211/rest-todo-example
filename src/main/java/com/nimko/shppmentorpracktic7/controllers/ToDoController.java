@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.LocaleResolver;
 
 import javax.validation.Valid;
 import java.util.Locale;
@@ -67,8 +66,8 @@ public class ToDoController implements ToDoable {
     @DeleteMapping("/{todo}")
     @Override
     @Operation(summary = "Method for delete ToDo", description = "Для видалення ToDo")
-    public ResponseEntity<?> deleteOne(@PathVariable String todo){
-        return toDoService.deleteOne(todo);
+    public ResponseEntity<?> deleteOne(@PathVariable String todo, Locale locale){
+        return toDoService.deleteOne(todo,locale);
     }
 
 }
