@@ -2,7 +2,7 @@ curl -X POST --user user:user -H "Accept:application/json" -H "Content-type:appl
 echo -e
 curl -X POST --user user:user -H "Accept:application/json" -H "Content-type:application/json" http://localhost:5000/todos?lang=uk -d'{"toDo": "ring","plannedDateTime": "2023-02-05T15:40:15.394Z","state": "PLANNED"}'
 echo -e
-curl -X PUT --user user:user -H "Accept:application/json" -H "Content-type:application/json" http://localhost:5000/todos -d'{"toDo": "ring","plannedDateTime": "2023-02-05T15:40:15.394Z","state": "WORK_IN_PROGRESS"}'
+curl -X PUT --user user:user -H "Accept:application/json" -H "Content-type:application/json" http://localhost:5000/todos?lang=uk -d'{"toDo": "ring","plannedDateTime": "2023-02-05T15:40:15.394Z","state": "WORK_IN_PROGRESS"}'
 echo -e
 curl -X PUT --user user:user -H "Accept:application/json" -H "Content-type:application/json" http://localhost:5000/todos -d'{"toDo": "ring","plannedDateTime": "2023-02-05T15:40:15.394Z","state": "DONE"}'
 echo -e
