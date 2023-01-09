@@ -1,6 +1,6 @@
 package com.nimko.shppmentorpracktic7.controllers;
 
-import com.nimko.shppmentorpracktic7.models.ToDoEntity;
+import com.nimko.shppmentorpracktic7.dto.ToDoDto;
 import com.nimko.shppmentorpracktic7.services.ToDoService;
 import com.nimko.shppmentorpracktic7.utils.ToDoable;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -27,7 +27,6 @@ import java.util.Locale;
 )
 @Tag(name = "Controller",description = "My ToDo Controller")
 public class ToDoController implements ToDoable {
-
     private final ToDoService toDoService;
 
     @Autowired
@@ -52,15 +51,15 @@ public class ToDoController implements ToDoable {
     @PostMapping
     @Override
     @Operation(summary = "Method for create ToDo", description = "Тут створюємо ToDo")
-    public ResponseEntity<?> createOne(@Valid @RequestBody ToDoEntity toDoEntity, Locale locale){
-        return toDoService.createOne(toDoEntity, locale);
+    public ResponseEntity<?> createOne(@Valid @RequestBody ToDoDto dto, Locale locale){
+        return toDoService.createOne(dto, locale);
     }
 
     @PutMapping
     @Override
     @Operation(summary = "Method for change ToDo", description = "Тут змінюємо ToDo")
-    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoEntity toDoEntity, Locale locale){
-        return toDoService.putOne(toDoEntity, locale);
+    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoDto dto, Locale locale){
+        return toDoService.putOne(dto, locale);
     }
 
     @DeleteMapping("/{todo}")
