@@ -21,6 +21,7 @@ public class ToDoDto {
     @NotNull
     @NotEmpty
     private String toDo;
+    @NotNull
     @Future
     private LocalDateTime plannedDateTime;
     @NotNull

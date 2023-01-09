@@ -5,7 +5,6 @@ import com.nimko.shppmentorpracktic7.models.ToDoEntity;
 import com.nimko.shppmentorpracktic7.repo.ToDoRepository;
 import com.nimko.shppmentorpracktic7.utils.State;
 import com.nimko.shppmentorpracktic7.utils.ToDoable;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class ToDoService implements ToDoable {
     private final ToDoRepository toDoRepository;
     private final StateService stateService;
