@@ -17,7 +17,6 @@ echo -e
 curl http://localhost:5000/todos
 echo -e
 
-
 curl http://localhost:5000/todos/ring
 echo -e
 curl -X DELETE --user user:user http://localhost:5000/todos/string
