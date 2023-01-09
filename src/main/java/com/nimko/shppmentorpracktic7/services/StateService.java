@@ -23,7 +23,7 @@ public class StateService {
     private ToDoEntity stateTransition(ToDoEntity oldEntity, ToDoEntity newEntity) {
         List<State> states = Arrays.stream(State.values()).collect(Collectors.toList());
         State exeptedState = states.get(states.indexOf(oldEntity.getState()) + 1);
-        if(exeptedState == newEntity.getState()) throw new NoSuchElementException("Wrong operation!");
+        if(exeptedState != newEntity.getState()) newEntity = null;
         return newEntity;
     }
 }

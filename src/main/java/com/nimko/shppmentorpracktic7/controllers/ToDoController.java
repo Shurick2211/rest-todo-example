@@ -60,8 +60,8 @@ public class ToDoController implements ToDoable {
     @PutMapping
     @Override
     @Operation(summary = "Method for change ToDo", description = "Тут змінюємо ToDo")
-    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoEntity toDoEntity){
-        return toDoService.putOne(toDoEntity);
+    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoEntity toDoEntity, Locale locale){
+        return toDoService.putOne(toDoEntity, locale);
     }
 
     @DeleteMapping("/{todo}")
