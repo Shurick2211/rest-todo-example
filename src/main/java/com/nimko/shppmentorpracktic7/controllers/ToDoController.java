@@ -11,8 +11,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/todos")
@@ -51,8 +53,8 @@ public class ToDoController implements ToDoable {
     @PostMapping
     @Override
     @Operation(summary = "Method for create ToDo", description = "Тут створюємо ToDo")
-    public ResponseEntity<?> createOne(@Valid @RequestBody ToDoEntity toDoEntity){
-        return toDoService.createOne(toDoEntity);
+    public ResponseEntity<?> createOne(@Valid @RequestBody ToDoEntity toDoEntity, Locale locale){
+        return toDoService.createOne(toDoEntity, locale);
     }
 
     @PutMapping
