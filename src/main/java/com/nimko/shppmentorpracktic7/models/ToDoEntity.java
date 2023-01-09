@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -21,8 +22,10 @@ import java.time.LocalDateTime;
 @Schema(name = "Схема ToDoEntity", description = "Сутність для Бази Даних, вона ж DTO")
 public class ToDoEntity {
     @Id
+    @NotNull
+    @NotEmpty
     private String toDo;
-    @Future(message = "{todo.future}")
+    @Future
     private LocalDateTime plannedDateTime;
     @NotNull
     private State state;
