@@ -10,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,20 +38,7 @@ public class SecurityConfig {
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) {
         auth
-                .authenticationProvider(provider)
-                /*
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password("user")
-                .authorities(Role.USER.name())
-                .and()
-                .withUser("admin")
-                .password("admin")
-                .authorities(Role.ADMIN.name())
-
-                 */
-                ;
-
+                .authenticationProvider(provider);
     }
 
     @Bean

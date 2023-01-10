@@ -21,12 +21,12 @@ public class UserAuthenticationService implements AuthenticationProvider {
     );
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         UserDetails userDetails = users.stream()
                 .filter(u -> u.getUsername().equals(authentication.getName())
                         && u.getPassword().equals(authentication.getCredentials().toString()))
                 .findFirst().orElse(null);
-        if (userDetails == null) throw new BadCredentialsException("User not found!");
+        if (userDetails == null) throw new BadCredentialsException("Wrong login or password!");
         log.warn("{}",userDetails);
         return new UsernamePasswordAuthenticationToken(
                 userDetails,userDetails.getPassword(),userDetails.getAuthorities());
