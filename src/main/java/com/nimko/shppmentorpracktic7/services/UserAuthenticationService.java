@@ -4,6 +4,7 @@ import com.nimko.shppmentorpracktic7.models.User;
 import com.nimko.shppmentorpracktic7.utils.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -14,16 +15,19 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserAuthenticationService implements AuthenticationProvider {
+    private final List<UserDetails> users = List.of(
+            new User("Vasya","user","user", Role.USER),
+            new User("Senya","admin","admin", Role.ADMIN)
+    );
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        List<UserDetails> users = List.of(
-                new User("Vasya","user","user", Role.USER),
-                new User("Senya","admin","admin", Role.ADMIN)
-        );
-        log.warn("{}",authentication.getName());
         UserDetails userDetails = users.stream()
-                .filter(u -> u.getUsername().equals(authentication.getName()))
-                .findFirst().orElseThrow();
+                .filter(u -> u.getUsername().equals(authentication.getName())
+                        && u.getPassword().equals(authentication.getCredentials().toString()))
+                .findFirst().orElse(null);
+        if (userDetails == null) throw new BadCredentialsException("User not found!");
+        log.warn("{}",userDetails);
         return new UsernamePasswordAuthenticationToken(
                 userDetails,userDetails.getPassword(),userDetails.getAuthorities());
     }
