@@ -1,5 +1,6 @@
 package com.nimko.shppmentorpracktic7.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nimko.shppmentorpracktic7.utils.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -27,4 +28,18 @@ public class ToDoDto {
     @NotNull
     private State state;
 
+    @JsonProperty("to_do")
+    public String getToDo() {
+        return toDo;
+    }
+
+    @JsonProperty("planned_date_time")
+    public LocalDateTime getPlannedDateTime() {
+        return plannedDateTime;
+    }
+
+    @JsonProperty("state")
+    public State getState() {
+        return state;
+    }
 }
