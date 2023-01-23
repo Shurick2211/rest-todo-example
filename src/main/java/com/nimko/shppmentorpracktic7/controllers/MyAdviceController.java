@@ -26,20 +26,20 @@ public class MyAdviceController {
         String mess = ex.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList()).toString();
-        ErrorMessage message = new ErrorMessage(LocalDateTime.now(),"Error validate ToDo", mess);
+        ErrorMessage message = new ErrorMessage(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),"Error validate ToDo", mess);
         return ResponseEntity
                 .badRequest()
                 .body(message);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
         String mess = exception.getMessage();
         log.error(mess);
-        ErrorMessage message = new ErrorMessage(LocalDateTime.now(),"Error create or update ToDo", mess);
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        ErrorMessage message = new ErrorMessage(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(),"Error create or update ToDo", mess);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
 
 }
