@@ -21,45 +21,43 @@ public class ToDoService implements ToDoable {
     private final ToDoRepository toDoRepository;
     private final StateService stateService;
     private final MessageSource messageSource;
-    private final DtoService dtoService;
+
 
     @Autowired
     public ToDoService(ToDoRepository toDoRepository, StateService stateService,
-                       MessageSource messageSource, DtoService dtoService) {
+                       MessageSource messageSource) {
         this.toDoRepository = toDoRepository;
         this.stateService = stateService;
         this.messageSource = messageSource;
-        this.dtoService = dtoService;
     }
 
     @Override
     public ResponseEntity<?> getAll() {
         List<ToDoDto> dtos = toDoRepository.findAll().stream()
-                .map(dtoService::getDtoFromEntity).collect(Collectors.toList());
+                .map(DtoService::getDtoFromEntity).collect(Collectors.toList());
         return ResponseEntity.ok().body(dtos);
     }
 
     @Override
     public ResponseEntity<?> getOne(String todo) {
         return ResponseEntity.ok()
-                .body(dtoService.getDtoFromEntity(toDoRepository.findById(todo).orElseThrow()));
+                .body(DtoService.getDtoFromEntity(toDoRepository.findById(todo).orElseThrow()));
     }
 
     @Override
     public ResponseEntity<?> createOne(ToDoDto dto, Locale locale) {
-        ToDoEntity toDoEntity = dtoService.getEntityFromDto(dto);
+        ToDoEntity toDoEntity = DtoService.getEntityFromDto(dto);
         if (toDoRepository.findById(toDoEntity.getToDo()).isEmpty() && toDoEntity.getState() != State.PLANNED)
             throw new NoSuchElementException(
                     messageSource.getMessage("operation.first", null, locale));
         toDoRepository.save(toDoEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                messageSource.getMessage("create.sms", null, locale)
-                        + dtoService.getDtoFromEntity(toDoEntity));
+                DtoService.getDtoFromEntity(toDoEntity));
     }
 
     @Override
     public ResponseEntity<?> putOne(ToDoDto dto, Locale locale) {
-        ToDoEntity toDoEntity = dtoService.getEntityFromDto(dto);
+        ToDoEntity toDoEntity = DtoService.getEntityFromDto(dto);
         ToDoEntity oldEntity = toDoRepository.
                 findById(toDoEntity.getToDo()).orElseThrow();
         toDoEntity = stateService.getUpdate(oldEntity,toDoEntity);
@@ -67,15 +65,13 @@ public class ToDoService implements ToDoable {
                 messageSource.getMessage("operation.null",null, locale));
         toDoRepository.save(toDoEntity);
         return ResponseEntity.ok().body(
-                messageSource.getMessage("put.sms", null, locale)
-                        + dtoService.getDtoFromEntity(toDoEntity));
+                DtoService.getDtoFromEntity(toDoEntity));
     }
 
     @Override
     public ResponseEntity<?> deleteOne(String todo, Locale locale) {
         ToDoEntity toDoEntity = toDoRepository.findById(todo).orElseThrow();
         toDoRepository.delete(toDoEntity);
-        return ResponseEntity.ok().body(dtoService.getDtoFromEntity(toDoEntity) + " "
-                + messageSource.getMessage("delete.sms", null, locale));
+        return ResponseEntity.ok().body(DtoService.getDtoFromEntity(toDoEntity));
     }
 }
