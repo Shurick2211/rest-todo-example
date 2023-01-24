@@ -11,8 +11,8 @@ public class GatlingTest extends Simulation {
 
     public GatlingTest() {
        this.setUp(Scenario.req.injectOpen(
-               CoreDsl.constantUsersPerSec(1)
-                       .during(1)
+               CoreDsl.constantUsersPerSec(1000)
+                       .during(60)
        )).protocols(http);
     }
 }

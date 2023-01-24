@@ -8,5 +8,6 @@ public class Scenario {
     public static ScenarioBuilder req = CoreDsl.scenario("Request scenario")
             .exec(Steps.reqPost)
             .exec(Steps.reqPutWork)
+            .exec(Steps.reqPutDone)
             ;
 }

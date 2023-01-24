@@ -27,6 +27,7 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/actuator/*").permitAll()
                 .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers(HttpMethod.POST).authenticated()
                 .antMatchers(HttpMethod.PUT).authenticated()
