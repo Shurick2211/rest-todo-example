@@ -10,9 +10,13 @@ public class GatlingTest extends Simulation {
     HttpProtocolBuilder http = HttpDsl.http.baseUrl("http://localhost:5000");
 
     public GatlingTest() {
-       this.setUp(Scenario.req.injectOpen(
-               CoreDsl.constantUsersPerSec(1000)
-                       .during(60)
-       )).protocols(http);
+       this.setUp(Scenario.reqPostPut.injectOpen(
+               CoreDsl.constantUsersPerSec(30)
+                       .during(30)),
+               Scenario.reqGet.injectOpen(
+                       CoreDsl.constantUsersPerSec(30)
+                               .during(30)
+               )
+       ).protocols(http);
     }
 }

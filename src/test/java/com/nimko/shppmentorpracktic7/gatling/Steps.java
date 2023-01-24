@@ -39,4 +39,11 @@ public class Steps {
                             " \"2023-02-05T15:40:15.394Z\",\"state\": \"DONE\"}"))
                     .check(HttpDsl.status().is(201))
     );
+
+    public static ChainBuilder reqGet = CoreDsl.exec(
+            HttpDsl
+                    .http("get request")
+                    .get("/todos")
+                    .check(HttpDsl.status().is(200))
+    );
 }
