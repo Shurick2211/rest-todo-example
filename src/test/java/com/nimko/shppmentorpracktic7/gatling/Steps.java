@@ -18,32 +18,73 @@ public class Steps {
                     .check(HttpDsl.status().is(201))
     );
 
+    public static ChainBuilder reqPostAdm = CoreDsl.exec(
+            HttpDsl
+                    .http("post request admin")
+                    .post("/todos")
+                    .basicAuth("admin","admin")
+                    .header("Content-type","application/json")
+                    .body(StringBody("{\"to_do\": \"ring-ring\",\"planned_date_time\":" +
+                            " \"2023-02-05T15:40:15.394Z\",\"state\": \"PLANNED\"}"))
+                    .check(HttpDsl.status().is(201))
+    );
+
+    public static ChainBuilder reqPutCancelAdm = CoreDsl.exec(
+            HttpDsl
+                    .http("put request CANCEL")
+                    .put("/todos")
+                    .basicAuth("admin","admin")
+                    .header("Content-type","application/json")
+                    .body(StringBody("{\"to_do\": \"ring-ring\",\"planned_date_time\":" +
+                            " \"2023-02-05T15:40:15.394Z\",\"state\": \"CANCELED\"}"))
+                    .check(HttpDsl.status().is(200))
+    );
+
+
     public static ChainBuilder reqPutWork = CoreDsl.exec(
             HttpDsl
                     .http("put request WORK")
-                    .post("/todos")
+                    .put("/todos")
                     .basicAuth("user","user")
                     .header("Content-type","application/json")
                     .body(StringBody("{\"to_do\": \"ring\",\"planned_date_time\":" +
                             " \"2023-02-05T15:40:15.394Z\",\"state\": \"WORK_IN_PROGRESS\"}"))
-                    .check(HttpDsl.status().is(201))
+                    .check(HttpDsl.status().is(200))
     );
 
     public static ChainBuilder reqPutDone = CoreDsl.exec(
             HttpDsl
-                    .http("put request WORK")
-                    .post("/todos")
+                    .http("put request Done")
+                    .put("/todos")
                     .basicAuth("user","user")
                     .header("Content-type","application/json")
                     .body(StringBody("{\"to_do\": \"ring\",\"planned_date_time\":" +
                             " \"2023-02-05T15:40:15.394Z\",\"state\": \"DONE\"}"))
-                    .check(HttpDsl.status().is(201))
+                    .check(HttpDsl.status().is(200))
+    );
+
+    public static ChainBuilder reqDelete = CoreDsl.exec(
+            HttpDsl
+                    .http("delete request")
+                    .delete("/todos/ring-ring")
+                    .basicAuth("admin","admin")
+                    .header("Content-type","application/json")
+                    .check(HttpDsl.status().is(200))
     );
 
     public static ChainBuilder reqGet = CoreDsl.exec(
             HttpDsl
                     .http("get request")
                     .get("/todos")
+                    .check(HttpDsl.status().is(200))
+    );
+
+    public static ChainBuilder reqGetOne = CoreDsl.exec(
+            HttpDsl
+                    .http("Get one request")
+                    .get("/todos/ring-ring")
+                    .basicAuth("admin","admin")
+                    .header("Content-type","application/json")
                     .check(HttpDsl.status().is(200))
     );
 }

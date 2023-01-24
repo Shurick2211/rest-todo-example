@@ -14,4 +14,12 @@ public class Scenario {
     public static ScenarioBuilder reqGet = CoreDsl.scenario("Get request scenario")
             .exec(Steps.reqGet)
             ;
+
+    public static ScenarioBuilder reqAdmin = CoreDsl.scenario("Post-put-delete request scenario")
+            .exec(Steps.reqPostAdm)
+            .exec(Steps.reqPutCancelAdm)
+            .exec(Steps.reqGetOne)
+            .exec(Steps.reqDelete)
+            ;
+
 }
