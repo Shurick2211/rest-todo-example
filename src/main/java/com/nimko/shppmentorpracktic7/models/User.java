@@ -1,8 +1,10 @@
 package com.nimko.shppmentorpracktic7.models;
 
 import com.nimko.shppmentorpracktic7.utils.Role;
-import lombok.*;
-import org.hibernate.annotations.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

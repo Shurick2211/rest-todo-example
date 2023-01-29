@@ -1,8 +1,6 @@
 package com.nimko.shppmentorpracktic7.services;
 
-import com.nimko.shppmentorpracktic7.models.User;
 import com.nimko.shppmentorpracktic7.repo.UserRepository;
-import com.nimko.shppmentorpracktic7.utils.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,10 +14,6 @@ import org.springframework.stereotype.Service;
 public class UserAuthenticationService implements AuthenticationProvider {
     @Autowired
     UserRepository userRepository;
-
-
-
-
 
     @Override
     public Authentication authenticate(Authentication authentication) {
