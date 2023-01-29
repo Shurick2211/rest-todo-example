@@ -18,7 +18,7 @@ curl --user admin:admin http://localhost:5000/todos
 echo -e
 #curl -X DELETE --user user:user http://localhost:5000/todos/string
 echo -e
-#curl -X DELETE --user admin:admin http://localhost:5000/todos/string?lang=uk
+curl -X DELETE --user admin:admin http://localhost:5000/todos/3?lang=uk
 echo -e
-#curl  http://localhost:5000/todos
+curl --user admin:admin http://localhost:5000/todos
 echo -e

@@ -8,8 +8,8 @@ import java.util.Locale;
 
 public interface ToDoable {
    ResponseEntity<?> getAll(User user);
-   ResponseEntity<?> getOne(Long id);
+   ResponseEntity<?> getOne(Long id, User user);
    ResponseEntity<?> createOne(ToDoDto dto, User user, Locale locale);
    ResponseEntity<?> putOne(ToDoDto dto, User user, Locale locale);
-   ResponseEntity<?> deleteOne(Long id, Locale locale);
+   ResponseEntity<?> deleteOne(Long id, User user, Locale locale);
 }

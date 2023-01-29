@@ -40,9 +40,10 @@ public class ToDoService implements ToDoable {
     }
 
     @Override
-    public ResponseEntity<?> getOne(Long id) {
+    public ResponseEntity<?> getOne(Long id, User user) {
         return ResponseEntity.ok()
-                .body(DtoService.getDtoFromEntity(toDoRepository.findById(id).orElseThrow()));
+                .body(DtoService.getDtoFromEntity(
+                        toDoRepository.findToDoEntityByIdAndUser(id,user).orElseThrow()));
     }
 
     @Override
@@ -73,8 +74,8 @@ public class ToDoService implements ToDoable {
     }
 
     @Override
-    public ResponseEntity<?> deleteOne(Long id, Locale locale) {
-        ToDoEntity toDoEntity = toDoRepository.findById(id).orElseThrow();
+    public ResponseEntity<?> deleteOne(Long id, User user, Locale locale) {
+        ToDoEntity toDoEntity = toDoRepository.findToDoEntityByIdAndUser(id,user).orElseThrow();
         toDoRepository.delete(toDoEntity);
         return ResponseEntity.ok().body(DtoService.getDtoFromEntity(toDoEntity));
     }

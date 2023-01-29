@@ -27,11 +27,8 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/actuator/*").permitAll()
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST).authenticated()
-                .antMatchers(HttpMethod.PUT).authenticated()
-                .antMatchers(HttpMethod.DELETE).hasAuthority(Role.ADMIN.name())
+                .antMatchers("/actuator/*", "/users").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and().build();

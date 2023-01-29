@@ -48,8 +48,9 @@ public class ToDoController implements ToDoable {
     @GetMapping("/{id}")
     @Override
     @Operation(summary = "Get ToDo by todo-field", description = "В цьому методі можна отримати один ToDo по полю - todo")
-    public ResponseEntity<?> getOne(@PathVariable Long id){
-        return toDoService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Long id,
+                                    @AuthenticationPrincipal User user){
+        return toDoService.getOne(id, user);
     }
 
     @PostMapping
@@ -65,15 +66,19 @@ public class ToDoController implements ToDoable {
     @PutMapping
     @Override
     @Operation(summary = "Method for change ToDo", description = "Тут змінюємо ToDo")
-    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoDto dto, @AuthenticationPrincipal User user, Locale locale){
+    public ResponseEntity<?> putOne(@Valid @RequestBody ToDoDto dto,
+                                    @AuthenticationPrincipal User user,
+                                    Locale locale){
         return toDoService.putOne(dto, user, locale);
     }
 
     @DeleteMapping("/{id}")
     @Override
     @Operation(summary = "Method for delete ToDo", description = "Для видалення ToDo")
-    public ResponseEntity<?> deleteOne(@PathVariable Long id, Locale locale){
-        return toDoService.deleteOne(id,locale);
+    public ResponseEntity<?> deleteOne(@PathVariable Long id,
+                                       @AuthenticationPrincipal User user,
+                                       Locale locale){
+        return toDoService.deleteOne(id, user, locale);
     }
 
 }
