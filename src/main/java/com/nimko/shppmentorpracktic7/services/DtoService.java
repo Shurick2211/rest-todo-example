@@ -6,7 +6,7 @@ import com.nimko.shppmentorpracktic7.models.ToDoEntity;
 
 public class DtoService {
     public static ToDoDto getDtoFromEntity(ToDoEntity entity){
-        return new ToDoDto(entity.getToDo(), entity.getPlannedDateTime(), entity.getState());
+        return new ToDoDto(entity.getId(), entity.getToDo(), entity.getPlannedDateTime(), entity.getState());
     }
 
     public static ToDoEntity getEntityFromDto(ToDoDto dto){

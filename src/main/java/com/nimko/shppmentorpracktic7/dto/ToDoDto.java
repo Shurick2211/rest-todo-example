@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(name = "Схема ToDoDto", description = "DTO для фронтенду!")
 public class ToDoDto {
+    long id;
     @NotNull
     @NotEmpty
     private String toDo;
@@ -41,5 +42,11 @@ public class ToDoDto {
     @JsonProperty("state")
     public State getState() {
         return state;
+    }
+
+    public ToDoDto(String toDo, LocalDateTime plannedDateTime, State state) {
+        this.toDo = toDo;
+        this.plannedDateTime = plannedDateTime;
+        this.state = state;
     }
 }
