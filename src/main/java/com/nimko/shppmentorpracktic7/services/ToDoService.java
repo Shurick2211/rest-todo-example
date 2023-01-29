@@ -34,7 +34,7 @@ public class ToDoService implements ToDoable {
 
     @Override
     public ResponseEntity<?> getAll(User user) {
-        List<ToDoDto> dtos = toDoRepository.findAll().stream()
+        List<ToDoDto> dtos = toDoRepository.findAllByUser(user).stream()
                 .map(DtoService::getDtoFromEntity).collect(Collectors.toList());
         return ResponseEntity.ok().body(dtos);
     }
@@ -60,11 +60,13 @@ public class ToDoService implements ToDoable {
     @Override
     public ResponseEntity<?> putOne(ToDoDto dto, User user, Locale locale) {
         ToDoEntity toDoEntity = DtoService.getEntityFromDto(dto);
+        toDoEntity.setUser(user);
         ToDoEntity oldEntity = toDoRepository.
                 findToDoEntityByUserAndToDo(user,dto.getToDo()).orElseThrow();
         toDoEntity = stateService.getUpdate(oldEntity,toDoEntity);
         if (toDoEntity == null ) throw new NoSuchElementException(
                 messageSource.getMessage("operation.null",null, locale));
+        toDoEntity.setId(oldEntity.getId());
         toDoRepository.save(toDoEntity);
         return ResponseEntity.ok().body(
                 DtoService.getDtoFromEntity(toDoEntity));

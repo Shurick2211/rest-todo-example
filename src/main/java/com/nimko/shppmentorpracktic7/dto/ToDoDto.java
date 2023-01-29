@@ -28,6 +28,10 @@ public class ToDoDto {
     private LocalDateTime plannedDateTime;
     @NotNull
     private State state;
+    @JsonProperty("id")
+    public long getId() {
+        return id;
+    }
 
     @JsonProperty("to_do")
     public String getToDo() {
@@ -44,9 +48,4 @@ public class ToDoDto {
         return state;
     }
 
-    public ToDoDto(String toDo, LocalDateTime plannedDateTime, State state) {
-        this.toDo = toDo;
-        this.plannedDateTime = plannedDateTime;
-        this.state = state;
-    }
 }
