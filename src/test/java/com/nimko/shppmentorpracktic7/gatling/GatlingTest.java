@@ -12,7 +12,7 @@ public class GatlingTest extends Simulation {
     public GatlingTest() {
        this.setUp(
                Scenario.reqPostPut.injectOpen(
-                       CoreDsl.constantUsersPerSec(30)
+                       CoreDsl.constantUsersPerSec(15)
                                .during(30)),
                Scenario.reqGet.injectOpen(
                        CoreDsl.constantUsersPerSec(100)

@@ -26,6 +26,7 @@ public class MyAdviceController {
         String mess = ex.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList()).toString();
+        log.warn(mess);
         ErrorMessage message = new ErrorMessage(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),"Error validate ToDo", mess);
         return ResponseEntity
                 .badRequest()
@@ -36,6 +37,16 @@ public class MyAdviceController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<?> notFoundError(NoSuchElementException exception) {
+        String mess = exception.getMessage();
+        log.error(mess);
+        ErrorMessage message = new ErrorMessage(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(),"Error create or update ToDo", mess);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ResponseEntity<?> error(Exception exception) {
         String mess = exception.getMessage();
         log.error(mess);
         ErrorMessage message = new ErrorMessage(LocalDateTime.now(),HttpStatus.BAD_REQUEST.value(),"Error create or update ToDo", mess);
