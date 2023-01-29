@@ -6,6 +6,7 @@ import com.nimko.shppmentorpracktic7.services.ToDoService;
 import com.nimko.shppmentorpracktic7.utils.ToDoable;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -41,7 +42,7 @@ public class ToDoController implements ToDoable {
     @GetMapping
     @Override
     @Operation(summary = "Get all ToDo", description = "В цьому методі можна отримати всі ToDo")
-    public ResponseEntity<?> getAll(@AuthenticationPrincipal User user){
+    public ResponseEntity<?> getAll(@Parameter(hidden = true) @AuthenticationPrincipal User user){
         return toDoService.getAll(user);
     }
 
@@ -49,7 +50,7 @@ public class ToDoController implements ToDoable {
     @Override
     @Operation(summary = "Get ToDo by todo-field", description = "В цьому методі можна отримати один ToDo по полю - todo")
     public ResponseEntity<?> getOne(@PathVariable Long id,
-                                    @AuthenticationPrincipal User user){
+                                    @Parameter(hidden = true) @AuthenticationPrincipal User user){
         return toDoService.getOne(id, user);
     }
 
@@ -58,7 +59,7 @@ public class ToDoController implements ToDoable {
     @Operation(summary = "Method for create ToDo", description = "Тут створюємо ToDo"
     )
     public ResponseEntity<?> createOne(@Valid @RequestBody ToDoDto dto,
-                                       @AuthenticationPrincipal User user,
+                                       @Parameter(hidden = true) @AuthenticationPrincipal User user,
                                        Locale locale){
         return toDoService.createOne(dto, user, locale);
     }
@@ -67,7 +68,7 @@ public class ToDoController implements ToDoable {
     @Override
     @Operation(summary = "Method for change ToDo", description = "Тут змінюємо ToDo")
     public ResponseEntity<?> putOne(@Valid @RequestBody ToDoDto dto,
-                                    @AuthenticationPrincipal User user,
+                                    @Parameter(hidden = true) @AuthenticationPrincipal User user,
                                     Locale locale){
         return toDoService.putOne(dto, user, locale);
     }
@@ -76,7 +77,7 @@ public class ToDoController implements ToDoable {
     @Override
     @Operation(summary = "Method for delete ToDo", description = "Для видалення ToDo")
     public ResponseEntity<?> deleteOne(@PathVariable Long id,
-                                       @AuthenticationPrincipal User user,
+                                       @Parameter(hidden = true) @AuthenticationPrincipal User user,
                                        Locale locale){
         return toDoService.deleteOne(id, user, locale);
     }

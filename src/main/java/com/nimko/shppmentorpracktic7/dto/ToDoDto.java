@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nimko.shppmentorpracktic7.utils.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @Schema(name = "Схема ToDoDto", description = "DTO для фронтенду!")
 public class ToDoDto {
-    long id;
+    Long id;
     @NotNull
     @NotEmpty
     private String toDo;
@@ -28,8 +27,8 @@ public class ToDoDto {
     private LocalDateTime plannedDateTime;
     @NotNull
     private State state;
-    @JsonProperty("id")
-    public long getId() {
+    @JsonProperty(value = "id")
+    public Long getId() {
         return id;
     }
 

@@ -1,7 +1,6 @@
 package com.nimko.shppmentorpracktic7.models;
 
 import com.nimko.shppmentorpracktic7.utils.Role;
-import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity(name = "usr")
-@SchemaProperty()
 public class User implements UserDetails {
     private String name;
     @Id
