@@ -1,30 +1,32 @@
 package com.nimko.shppmentorpracktic7.models;
 
 import com.nimko.shppmentorpracktic7.utils.State;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 @Entity
-@Schema(name = "Схема ToDoEntity", description = "Сутність для Бази Даних, вона ж DTO")
 public class ToDoEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
     private String toDo;
-    @Future(message = "{todo.future}")
     private LocalDateTime plannedDateTime;
-    @NotNull
     private State state;
+    @ManyToOne
+    @JoinColumn(name = "user_login")
+    private User user;
 
+    public ToDoEntity(String toDo, LocalDateTime plannedDateTime, State state) {
+        this.toDo = toDo;
+        this.plannedDateTime = plannedDateTime;
+        this.state = state;
+    }
 }

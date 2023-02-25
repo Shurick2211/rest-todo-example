@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class StateServiceTest {
     ToDoEntity plannedEntity;
@@ -58,47 +58,39 @@ class StateServiceTest {
 
     @Test
     void getUpdateDoneToCancel() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(doneEntity, cancelEntity));
+       assertNull(stateService.getUpdate(doneEntity, cancelEntity));
     }
 
     @Test
     void getUpdatePlannedToDone() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(plannedEntity, doneEntity));
+        assertNull(stateService.getUpdate(plannedEntity, doneEntity));
     }
     @Test
     void getUpdateWorkToPlanned() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(workEntity, plannedEntity));
+        assertNull(stateService.getUpdate(workEntity, plannedEntity));
     }
     @Test
     void getUpdateDoneToPlanned() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(doneEntity, plannedEntity));
+        assertNull(stateService.getUpdate(doneEntity, plannedEntity));
     }
 
     @Test
     void getUpdateDoneToWork() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(doneEntity, workEntity));
+        assertNull(stateService.getUpdate(doneEntity, workEntity));
     }
 
     @Test
     void getUpdateCancelToPlanned() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(cancelEntity, plannedEntity));
+        assertNull(stateService.getUpdate(cancelEntity, plannedEntity));
     }
 
     @Test
     void getUpdateCancelToWork() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(cancelEntity, workEntity));
+        assertNull(stateService.getUpdate(cancelEntity, workEntity));
     }
 
     @Test
     void getUpdateCancelToDone() {
-        assertThrows(NoSuchElementException.class,() ->
-                stateService.getUpdate(cancelEntity, doneEntity));
+        assertNull(stateService.getUpdate(cancelEntity, doneEntity));
     }
 }
